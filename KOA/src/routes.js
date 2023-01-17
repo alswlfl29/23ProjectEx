@@ -20,6 +20,13 @@ router.post(
   upload.single("file"),
   require("./api/file/controller").upload
 );
+router.get("/file/:id", require("./api/file/controller").download);
+
+router.post(
+  "/file/upload",
+  upload.single("file"),
+  require("./api/file/controller").upload
+);
 
 router.get("/", myLogging, webController.home);
 router.get("/page/:page", myLogging, webController.page);
