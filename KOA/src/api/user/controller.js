@@ -11,11 +11,11 @@ exports.info = (ctx, next) => {
 /** 회원 가입 */
 exports.register = async (ctx, next) => {
   let { email, password, name } = ctx.request.body;
-  let result = crypto.pbkdf25ync(
+  let result = crypto.pbkdf2Sync(
     password,
     process.env.APP_KEY,
     50,
-    255,
+    25,
     "sha512"
   );
 
@@ -36,11 +36,11 @@ exports.login = async (ctx, next) => {
   // let pw=ctx.request.body.pw;
 
   //계정이 있는 경우 토큰 발급, 없는 경우 에러 메시지 출력
-  let result = crypto.pbkdf25ync(
+  let result = await crypto.pbkdf2Sync(
     password,
     process.env.APP_KEY,
     50,
-    255,
+    25,
     "sha512"
   );
 
@@ -48,7 +48,7 @@ exports.login = async (ctx, next) => {
   if (item == null) {
     ctx.body = { result: "fail" };
   } else {
-    let token = await generteToken({ name: item.name });
+    let token = await generteToken({ name: item.name, id: item.id });
     ctx.body = token;
   }
 };

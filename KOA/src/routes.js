@@ -22,12 +22,6 @@ router.post(
 );
 router.get("/file/:id", require("./api/file/controller").download);
 
-router.post(
-  "/file/upload",
-  upload.single("file"),
-  require("./api/file/controller").upload
-);
-
 router.get("/", myLogging, webController.home);
 router.get("/page/:page", myLogging, webController.page);
 
@@ -42,7 +36,7 @@ router.get("/api/user/:id", apiUserController.info);
 router.get("/api/feed", apiFeedController.index);
 router.post("/api/feed", apiFeedController.store);
 router.get("/api/feed/:id", apiFeedController.show);
-router.get("/api/feed/:id", apiFeedController.update);
+router.put("/api/feed/:id", apiFeedController.update);
 router.delete("/api/feed/:id", apiFeedController.delete);
 
 module.exports = router;
